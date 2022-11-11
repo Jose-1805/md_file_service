@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\File;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -31,6 +32,7 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
         $file = File::create($request->all());
+        $request->file('file')->storeAs($request->location, $request->name);
         return $this->generateResponse($file, Response::HTTP_CREATED);
     }
 
@@ -54,7 +56,15 @@ class FileController extends Controller
      */
     public function update(UpdateFileRequest $request, File $file)
     {
+        $old_location = $file->getFullPath();
         $file->update($request->all());
+        if ($request->has('file')) {
+            $file->removeFromStorage();
+            $request->file('file')->storeAs($request->location, $request->name);
+        // Si no hay archivos pero la ubicación cambia, se mueve el archivo a la nueva ubicación
+        } elseif ($old_location != $file->getFullPath()) {
+            Storage::move($old_location, $file->getFullPath());
+        }
         return $this->httpOkResponse($file);
     }
 
@@ -66,6 +76,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
+        $file->removeFromStorage();
         $file->delete();
         return $this->httpOkResponse();
     }
