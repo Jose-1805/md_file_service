@@ -31,4 +31,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /**
+     * Configuración de acceso al Api Gateway
+     */
+    'api_gateway' => [
+        'base_uri' => env('API_GATEWAY_BASE_URI', 'http://md-api-gateway'),
+        'access_secret' => env('API_GATEWAY_ACCESS_SECRET', 'PlyxRzUxpm5GG0r3bOOJkufTT9kUnnYj')
+    ],
+
+    'access_secrets' => env('ACCESS_SECRETS', 'n5IZ4MFPx61PsIud15Mmi3Gda3cDQdJ5')
+
 ];
