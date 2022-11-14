@@ -80,4 +80,15 @@ class FileController extends Controller
         $file->delete();
         return $this->httpOkResponse();
     }
+
+    /**
+     * Descarga del archivo
+     *
+     * @param File $file
+     * @return void
+     */
+    public function download(File $file)
+    {
+        return $file->download();
+    }
 }
