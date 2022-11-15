@@ -27,14 +27,23 @@ rm -r $tmp_path/
 echo '### mv $default_path/Helpers/ $default_path/app/'
 mv $default_path/Helpers/ $default_path/app/
 
+echo '### mkdir $default_path/app/Rules'
+mkdir $default_path/app/Rules
+
 echo '### mkdir $default_path/app/Traits'
 mkdir $default_path/app/Traits
 
 echo '### mkdir $default_path/app/Services'
 mkdir $default_path/app/Services
 
+echo '### mkdir $default_path/app/Console/Commands'
+mkdir $default_path/app/Console/Commands
+
 echo '### mv Kernel.php $default_path/app/Http/Kernel.php'
 mv Kernel.php $default_path/app/Http/Kernel.php
+
+echo '### mv OkApiGatewayResponse.php $default_path/app/Rules/OkApiGatewayResponse.php'
+mv OkApiGatewayResponse.php $default_path/app/Rules/OkApiGatewayResponse.php
 
 echo '### mv ApiGateway.php $default_path/app/Services/ApiGateway.php'
 mv ApiGateway.php $default_path/app/Services/ApiGateway.php
