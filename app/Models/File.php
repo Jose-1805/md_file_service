@@ -51,7 +51,7 @@ class File extends Model
     public function download(): StreamedResponse
     {
         if (Storage::exists($this->getFullPath())) {
-            return Storage::download($this->getFullPath());
+            return Storage::download($this->getFullPath(), $this->name, ['Content-Disposition' => 'inline']);
         }
         abort(404);
     }
